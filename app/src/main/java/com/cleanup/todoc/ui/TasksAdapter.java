@@ -38,8 +38,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      * Instantiates a new TasksAdapter.
      *
      */
-    TasksAdapter(@NonNull final DeleteTaskListener deleteTaskListener) {
-        this.tasks = new ArrayList<>();
+    TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener) {
+        this.tasks = tasks;
         this.deleteTaskListener = deleteTaskListener;
     }
 
@@ -52,7 +52,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         this.tasks = tasks;
         notifyDataSetChanged();
     }
-    public List<Task> getTasks() { return tasks; }
 
     @NonNull
     @Override

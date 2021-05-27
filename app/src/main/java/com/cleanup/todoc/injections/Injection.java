@@ -6,6 +6,7 @@ import android.content.Context;
 import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.repositories.ProjectDataRepository;
 import com.cleanup.todoc.repositories.TaskDataRepository;
+import com.cleanup.todoc.ui.OnUpdateTasksListener;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -28,6 +29,6 @@ public class Injection {
         ProjectDataRepository dataSourceProject = provideProjectDataSource(context);
         Executor executor = provideExecutor();
         Context owner = context;
-        return new ViewModelFactory(dataSourceTask, dataSourceProject, executor, (LifecycleOwner) owner);
+        return new ViewModelFactory(dataSourceTask, dataSourceProject, executor, (OnUpdateTasksListener) owner);
     }
 }

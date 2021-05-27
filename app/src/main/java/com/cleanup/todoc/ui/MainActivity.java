@@ -36,7 +36,7 @@ import java.util.List;
  *
  * @author Gaëtan HERFRAY
  */
-public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
+public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener, OnUpdateTasksListener {
     /**
      * List of all projects available in the application
      */
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.RECENT_FIRST;
         }
 
-        updateTasks(adapter.getTasks());
+        updateTasks();
 
         return super.onOptionsItemSelected(item);
     }
@@ -147,12 +147,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
         this.taskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
         this.taskViewModel.init(PROJECT_ID);
-        System.out.println("testosss" + taskViewModel.getTasks());
-        updateTasks(this.taskViewModel.getTasks());
+        System.out.println("tests 2" + taskViewModel.getTasks());
+        updateTasks();
     }
 
     private void configureRecyclerView(){
-        this.adapter = new TasksAdapter(this);
+        this.adapter = new TasksAdapter(taskViewModel.getTasks(), this);
         this.listTasks.setAdapter(this.adapter);
         this.listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
@@ -235,7 +235,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * Updates the list of tasks in the UI
      */
-    private void updateTasks(List<Task> tasks) {
+    public void updateTasks() {
+        List<Task> tasks = taskViewModel.getTasks();
         if (tasks.size() == 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
             listTasks.setVisibility(View.GONE);
