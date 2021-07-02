@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     }
 
     private void configureRecyclerView(){
-        this.adapter = new TasksAdapter(taskViewModel.getTasks(), this);
+        this.adapter = new TasksAdapter(taskViewModel.getTasks(), taskViewModel, this);
         this.listTasks.setAdapter(this.adapter);
         this.listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }

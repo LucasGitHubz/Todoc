@@ -53,6 +53,15 @@ public class TaskViewModel extends ViewModel implements Observer<List<Task>> {
         });
     }
 
+    public Project getProjectById(long projectId) {
+        for (Project project : projects) {
+            if (project.getId() == projectId) {
+                return project;
+            }
+        }
+        return null;
+    }
+
     public void deleteTask(long taskId) {
         executor.execute(() -> {
             taskDataSource.deleteTask(taskId);
