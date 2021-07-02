@@ -36,8 +36,6 @@ public class Project {
                 new Project(3L, "Projet Circus", 0xFFA3CED2),
         };
     }
-
-    @Nullable
     public static Project getProjectById(long id) {
         for (Project project : getAllProjects()) {
             if (project.id == id)

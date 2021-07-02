@@ -50,10 +50,10 @@ public class Task {
         return creationTimestamp;
     }
 
-    @Nullable
+   /* @Nullable
     public Project getProject() {
         return Project.getProjectById(projectId);
-    }
+    }*/
 
     // --- SETTER ---
     public void setId(long id) {

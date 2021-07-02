@@ -36,10 +36,9 @@ public abstract class TodocDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-
     // ---
 
-    private static Callback prepopulateDatabase(){
+    private static Callback prepopulateDatabase() {
         return new Callback() {
 
             @Override
@@ -50,8 +49,18 @@ public abstract class TodocDatabase extends RoomDatabase {
                 contentValues.put("id", 1);
                 contentValues.put("name", "Tartampion");
                 contentValues.put("color", "0xFFEADAD1");
+                ContentValues contentValues2 = new ContentValues();
+                contentValues2.put("id", 2);
+                contentValues2.put("name", "Lucidia");
+                contentValues2.put("color", "0xFFB4CDBA");
+                ContentValues contentValues3 = new ContentValues();
+                contentValues3.put("id", 3);
+                contentValues3.put("name", "Circus");
+                contentValues3.put("color", "0xFFA3CED2");
 
                 db.insert("Project", OnConflictStrategy.IGNORE, contentValues);
+                db.insert("Project", OnConflictStrategy.IGNORE, contentValues2);
+                db.insert("Project", OnConflictStrategy.IGNORE, contentValues3);
             }
         };
     }

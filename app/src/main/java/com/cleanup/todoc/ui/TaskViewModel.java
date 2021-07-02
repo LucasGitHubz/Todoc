@@ -24,10 +24,7 @@ public class TaskViewModel extends ViewModel implements Observer<List<Task>> {
     private final Executor executor;
     private OnUpdateTasksListener owner;
     private List<Task> tasks = new ArrayList<>();
-
-    // DATA
-    @Nullable
-    private LiveData<Project> currentProject;
+    private List<Project> projects = new ArrayList<>();
 
     public TaskViewModel(TaskDataRepository taskDataSource, ProjectDataRepository projectDataSource, Executor executor, OnUpdateTasksListener owner) {
         this.taskDataSource = taskDataSource;
@@ -35,20 +32,11 @@ public class TaskViewModel extends ViewModel implements Observer<List<Task>> {
         this.executor = executor;
         this.owner = owner;
         this.getTasksLiveData().observe(owner, this);
+        this.getProjectsLiveData().observe(owner, this::onChangedProject);
     }
 
-    public void init(long projectId) {
-        if (this.currentProject != null) {
-            return;
-        }
-        currentProject = projectDataSource.getProject(projectId);
-    }
-
-    // -------------
-    // FOR PROJECT
-    // -------------
-
-    public LiveData<Project> getProject(long ProjectId) { return this.currentProject; }
+    private LiveData<List<Project>> getProjectsLiveData() { return projectDataSource.getProjects(); }
+    public List<Project> getProjects() { return this.projects; }
 
     // -------------
     // FOR TASK
@@ -75,5 +63,9 @@ public class TaskViewModel extends ViewModel implements Observer<List<Task>> {
     public void onChanged(@Nullable List<Task> tasks) {
         this.tasks = tasks;
         owner.updateTasks();
+    }
+
+    public void onChangedProject(@Nullable List<Project> projects) {
+        this.projects = projects;
     }
 }
